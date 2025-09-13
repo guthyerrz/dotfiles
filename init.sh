@@ -43,9 +43,6 @@ if ! command -v nix &> /dev/null; then
     fi
 fi
 
-echo "🔗 Linking dotfiles with stow..."
-stow .
-
 echo "🔧 Building and applying Darwin configuration..."
 
 # Navigate to nix-darwin directory for flake
