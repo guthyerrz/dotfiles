@@ -33,7 +33,7 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
 
-      users.users.omerxx.home = "/Users/omerxx";
+      users.users.guthy.home = "/Users/guthy";
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
       nix.useDaemon = true;
@@ -51,8 +51,7 @@
       # Homebrew needs to be installed on its own!
       homebrew.enable = true;
       homebrew.casks = [
-	      "wireshark"
-              "google-chrome"
+        "google-chrome"
       ];
       homebrew.brews = [
 	      "imagemagick"
@@ -67,7 +66,7 @@
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.omerxx = import ./home.nix;
+          home-manager.users.guthy = import ./home.nix;
         }
       ];
     };
