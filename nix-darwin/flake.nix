@@ -52,11 +52,11 @@
 
       # Create and configure user
       users.users.${actualUsername} = {
+        name = actualUsername;
         home = "/Users/${actualUsername}";
         createHome = true;
-        shell = "/bin/zsh";
+        shell = pkgs.zsh;
         description = "Primary user account";
-        extraGroups = [ "admin" ];
       };
 
       home-manager.backupFileExtension = "backup";
