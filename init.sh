@@ -26,7 +26,7 @@ if [ ! -d "$DOTFILES_DIR" ]; then
 else
     echo "📁 Dotfiles directory already exists, pulling latest changes..."
     cd "$DOTFILES_DIR"
-    git pull origin master
+    git pull origin main
 fi
 
 # Navigate to dotfiles directory
