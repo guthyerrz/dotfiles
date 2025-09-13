@@ -8,6 +8,7 @@ A declarative macOS configuration using Nix-Darwin and Home Manager.
 ```bash
 curl -sSL https://raw.githubusercontent.com/guthyerrz/dotfiles/main/init.sh | bash
 ```
+*Note: The script will prompt for your password to run system-level changes with sudo.*
 
 ### Manual Setup
 ```bash

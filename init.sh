@@ -2,6 +2,13 @@
 
 set -e  # Exit on any error
 
+# Check if running as root, if not, re-run with sudo
+if [ "$EUID" -ne 0 ]; then
+    echo "🔐 This script needs to run with sudo for system-level changes..."
+    echo "🔄 Re-running with sudo..."
+    exec sudo -E "$0" "$@"
+fi
+
 echo "🚀 Starting Mac setup with guthyerrz's dotfiles..."
 
 # Check if we're on macOS
@@ -49,15 +56,15 @@ echo "🔧 Building and applying Darwin configuration..."
 cd "$DOTFILES_DIR/nix-darwin"
 
 # First time setup - creates darwin-rebuild command
-echo "🔐 You may be prompted for your password for system-level changes..."
+echo "🔧 Running nix-darwin system activation..."
 
 # Ensure Nix is in PATH and run with proper environment
 if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
     source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
 fi
 
-# Run the nix-darwin switch with sudo but preserve environment
-sudo -E nix run nix-darwin -- switch --flake .
+# Run the nix-darwin switch (already running as root)
+nix run nix-darwin -- switch --flake .
 
 echo "✅ Setup complete!"
 echo ""
