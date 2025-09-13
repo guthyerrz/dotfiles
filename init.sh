@@ -62,7 +62,7 @@ fi
 
 # Run the nix-darwin switch with sudo only for this command
 # Use --impure to allow access to environment variables
-echo "🔧 Applying configuration
+echo "🔧 Applying configuration"
 sudo -E nix run nix-darwin -- switch --flake .
 
 echo "✅ Setup complete!"
