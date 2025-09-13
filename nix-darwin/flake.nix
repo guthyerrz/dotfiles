@@ -24,6 +24,20 @@
           pkgs.glow
           pkgs.nushell
           pkgs.carapace
+          pkgs.ack
+          pkgs.git-lfs
+          pkgs.go
+          pkgs.lua
+          pkgs.zoxide
+          pkgs.wget
+          pkgs.stern
+          pkgs.stow
+          pkgs.uv
+          (pkgs.ruby_3_3.withPackages (ps: with ps; [
+            fastlane
+            cocoapods
+            xcbeautify
+          ]))
         ];
       services.nix-daemon.enable = true;
       nix.settings.experimental-features = "nix-command flakes";
@@ -52,9 +66,27 @@
       homebrew.enable = true;
       homebrew.casks = [
         "google-chrome"
+        "ngrok"
+        "whatsapp"
+        "surfshark"
+        "spotify"
+        "slack"
+        "raycast"
+        "proton-pass"
+        "postman"
+        "localsend"
+        "ghostty"
+        "fork"
+        "docker-desktop"
+        "cursor"
+        "charles"
+        "android-studio"
       ];
       homebrew.brews = [
 	      "imagemagick"
+        "kubernetes-cli"
+        "kube-ps1"
+        "kubectx"
       ];
     };
   in
