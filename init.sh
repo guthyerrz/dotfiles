@@ -35,7 +35,7 @@ cd "$DOTFILES_DIR"
 # Install Nix if not present
 if ! command -v nix &> /dev/null; then
     echo "❄️  Installing Nix..."
-    curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
+    curl -fsSL https://install.determinate.systems/nix | sh -s -- install --determinate
     
     # Source Nix
     if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
