@@ -13,22 +13,19 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    # Helper function to create a configuration
-    mkDarwinConfig = hostname: username: nix-darwin.lib.darwinSystem {
-      system = "aarch64-darwin";
-      modules = [
-        (configuration hostname username)
-        home-manager.darwinModules.home-manager {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-          home-manager.users.${username} = import ./home.nix { 
-            inherit hostname username; 
-          };
-        }
-      ];
-    };
+    # Get hostname and username from environment variables
+    hostname = builtins.getEnv "HOSTNAME";
+    username = builtins.getEnv "USER";
     
-    configuration = hostname: username: { pkgs, ... }: {
+    # Fallback values if environment variables are not set
+    defaultHostname = "darwin-system";
+    defaultUsername = "user";
+    
+    # Use environment variables or fallback to defaults
+    actualHostname = if hostname != "" then hostname else defaultHostname;
+    actualUsername = if username != "" then username else defaultUsername;
+    
+    configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
@@ -62,17 +59,16 @@
       security.pam.enableSudoTouchIdAuth = true;
 
       # Set system hostname
-      networking.hostName = hostname;
-      networking.computerName = hostname;
-      networking.localHostName = hostname;
+      networking.hostName = actualHostname;
+      networking.computerName = actualHostname;
+      networking.localHostName = actualHostname;
 
       # Create and configure user
-      users.users.${username} = {
-        home = "/Users/${username}";
+      users.users.${actualUsername} = {
+        home = "/Users/${actualUsername}";
         createHome = true;
         shell = "/bin/zsh";
         description = "Primary user account";
-        # Add user to admin group for sudo access
         extraGroups = [ "admin" ];
       };
       home-manager.backupFileExtension = "backup";
@@ -119,19 +115,20 @@
     };
   in
   {
-    # Provide multiple common configurations
-    darwinConfigurations = {
-      # Default fallback configuration
-      "default" = mkDarwinConfig "default" (builtins.getEnv "USER");
-      
-      # Common hostnames - add your machines here
-      "guthy-v" = mkDarwinConfig "guthy-v" "guthy";
-      "guthy-mac" = mkDarwinConfig "guthy-mac" "guthy";
-      "Guthyerrzs-MacBook-Air" = mkDarwinConfig "Guthyerrzs-MacBook-Air" "guthyerrz.silva";
-      
-      # Generic configurations for common usernames
-      "guthy-system" = mkDarwinConfig "guthy-system" "guthy";
-      "guthyerrz-system" = mkDarwinConfig "guthyerrz-system" "guthyerrz.silva";
+    # Single dynamic configuration that adapts to any host
+    darwinConfigurations.${actualHostname} = nix-darwin.lib.darwinSystem {
+      system = "aarch64-darwin";
+      modules = [
+        configuration
+        home-manager.darwinModules.home-manager {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+          home-manager.users.${actualUsername} = import ./home.nix { 
+            hostname = actualHostname; 
+            username = actualUsername; 
+          };
+        }
+      ];
     };
 
   };
