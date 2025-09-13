@@ -3,3 +3,6 @@ tmux/plugins/
 raycast
 fzf
 history.txt
+
+# Host-specific configuration (generated during setup)
+nix-darwin/config.nix

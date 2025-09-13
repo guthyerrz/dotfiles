@@ -13,6 +13,9 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
+    # Import host-specific configuration
+    config = import ./config.nix;
+    
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
       # $ nix-env -qaP | grep wget
@@ -46,7 +49,7 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
 
-      users.users.guthy.home = "/Users/guthy";
+      users.users.${config.username}.home = config.homeDirectory;
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
       nix.useDaemon = true;
@@ -91,19 +94,19 @@
     };
   in
   {
-    darwinConfigurations."Guthyerrzs-MacBook-Air" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations.${config.hostname} = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [ 
 	configuration
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.guthy = import ./home.nix;
+          home-manager.users.${config.username} = import ./home.nix;
         }
       ];
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."Guthyerrzs-MacBook-Air".pkgs;
+    darwinPackages = self.darwinConfigurations.${config.hostname}.pkgs;
   };
 }

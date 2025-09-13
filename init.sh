@@ -43,10 +43,32 @@ if ! command -v nix &> /dev/null; then
     fi
 fi
 
-echo "🔧 Building and applying Darwin configuration..."
+echo "🔧 Generating host-specific configuration..."
 
 # Navigate to nix-darwin directory for flake
 cd "$DOTFILES_DIR/nix-darwin"
+
+# Generate config.nix from template if it doesn't exist
+if [ ! -f "config.nix" ]; then
+    echo "📝 Creating host-specific config.nix..."
+    
+    # Get system hostname (remove .local suffix if present)
+    HOSTNAME=$(hostname | sed 's/\.local$//')
+    
+    # Get current username
+    USERNAME=$(whoami)
+    
+    # Generate config.nix from template
+    sed -e "s/HOSTNAME_PLACEHOLDER/$HOSTNAME/g" \
+        -e "s/USERNAME_PLACEHOLDER/$USERNAME/g" \
+        config.nix.template > config.nix
+    
+    echo "✅ Generated config.nix with hostname: $HOSTNAME, username: $USERNAME"
+else
+    echo "ℹ️  Using existing config.nix"
+fi
+
+echo "🔧 Building and applying Darwin configuration..."
 
 # First time setup - creates darwin-rebuild command
 echo "🔧 Running nix-darwin system activation..."

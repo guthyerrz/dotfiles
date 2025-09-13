@@ -1,0 +1,12 @@
+# Host-specific configuration
+# This file is generated during setup and should not be committed to git
+{
+  # System hostname (used for darwinConfigurations)
+  hostname = "HOSTNAME_PLACEHOLDER";
+  
+  # Username for home-manager configuration
+  username = "USERNAME_PLACEHOLDER";
+  
+  # User's home directory path
+  homeDirectory = "/Users/USERNAME_PLACEHOLDER";
+}

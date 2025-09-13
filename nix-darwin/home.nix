@@ -3,9 +3,13 @@
 
 { config, pkgs, ... }:
 
+let
+  # Import host-specific configuration
+  hostConfig = import ./config.nix;
+in
 {
-  home.username = "guthy";
-  home.homeDirectory = "/Users/guthy";
+  home.username = hostConfig.username;
+  home.homeDirectory = hostConfig.homeDirectory;
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
 # Makes sense for user specific applications that shouldn't be available system-wide
