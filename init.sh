@@ -49,7 +49,8 @@ echo "🔧 Building and applying Darwin configuration..."
 cd "$DOTFILES_DIR/nix-darwin"
 
 # First time setup - creates darwin-rebuild command
-nix run nix-darwin -- switch --flake .
+echo "🔐 You may be prompted for your password for system-level changes..."
+sudo nix run nix-darwin -- switch --flake .
 
 echo "✅ Setup complete!"
 echo ""
@@ -59,4 +60,4 @@ echo "   git config --global user.name 'Your Name'"
 echo "   git config --global user.email 'your.email@example.com'"
 echo ""
 echo "🔄 To update in the future, run:"
-echo "   cd ~/dotfiles && git pull && darwin-rebuild switch --flake ~/.config/nix-darwin"
+echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake ."
