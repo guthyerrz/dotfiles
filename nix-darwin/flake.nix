@@ -15,7 +15,7 @@
   let
     # Use fixed values for your specific machine
     actualHostname = "guthy-host";
-    actualUsername = "guthy-dev";
+    actualUsername = "guthy";
     
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -49,15 +49,6 @@
       system.stateVersion = 4;
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
-
-      # Create and configure user
-      users.users.${actualUsername} = {
-        name = actualUsername;
-        home = "/Users/${actualUsername}";
-        createHome = true;
-        shell = pkgs.zsh;
-        description = "Primary user account";
-      };
 
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
