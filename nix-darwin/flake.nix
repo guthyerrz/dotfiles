@@ -13,17 +13,9 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    # Get hostname and username from environment variables
-    hostname = builtins.getEnv "HOSTNAME";
-    username = builtins.getEnv "USER";
-    
-    # Fallback values if environment variables are not set
-    defaultHostname = "darwin-system";
-    defaultUsername = "user";
-    
-    # Use environment variables or fallback to defaults
-    actualHostname = if hostname != "" then hostname else defaultHostname;
-    actualUsername = if username != "" then username else defaultUsername;
+    # Use fixed values for your specific machine
+    actualHostname = "guthy-host";
+    actualUsername = "guthy-dev";
     
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -57,6 +49,15 @@
       system.stateVersion = 4;
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
+
+      # Create and configure user
+      users.users.${actualUsername} = {
+        home = "/Users/${actualUsername}";
+        createHome = true;
+        shell = "/bin/zsh";
+        description = "Primary user account";
+        extraGroups = [ "admin" ];
+      };
 
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
@@ -110,9 +111,12 @@
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${actualUsername} = import ./home.nix { 
-            hostname = actualHostname; 
-            username = actualUsername; 
+          # Only configure the specific user, avoid root user configuration
+          home-manager.users = {
+            ${actualUsername} = import ./home.nix { 
+              hostname = actualHostname; 
+              username = actualUsername; 
+            };
           };
         }
       ];

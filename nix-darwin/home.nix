@@ -1,11 +1,11 @@
 # home.nix
 # home-manager switch 
 
-{ hostname, username }: { config, pkgs, ... }:
+{ hostname, username }: { config, pkgs, lib, ... }:
 
 {
   home.username = username;
-  home.homeDirectory = "/Users/${username}";
+  home.homeDirectory = lib.mkForce "/Users/${username}";
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
 # Makes sense for user specific applications that shouldn't be available system-wide
