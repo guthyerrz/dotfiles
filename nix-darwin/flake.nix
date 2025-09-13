@@ -13,8 +13,17 @@
 
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
-    # Import host-specific configuration
-    config = import ./config.nix;
+    # Get hostname and username from environment variables
+    hostname = builtins.getEnv "HOSTNAME";
+    username = builtins.getEnv "USER";
+    
+    # Fallback values if environment variables are not set
+    defaultHostname = "darwin-system";
+    defaultUsername = "user";
+    
+    # Use environment variables or fallback to defaults
+    actualHostname = if hostname != "" then hostname else defaultHostname;
+    actualUsername = if username != "" then username else defaultUsername;
     
     configuration = { pkgs, ... }: {
       # List packages installed in system profile. To search by name, run:
@@ -49,7 +58,7 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
 
-      users.users.${config.username}.home = config.homeDirectory;
+      users.users.${actualUsername}.home = "/Users/${actualUsername}";
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
       nix.useDaemon = true;
@@ -94,19 +103,21 @@
     };
   in
   {
-    darwinConfigurations.${config.hostname} = nix-darwin.lib.darwinSystem {
+    # Single dynamic configuration that adapts to any host
+    darwinConfigurations.${actualHostname} = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
-      modules = [ 
-	configuration
+      modules = [
+        configuration
         home-manager.darwinModules.home-manager {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
-          home-manager.users.${config.username} = import ./home.nix;
+          home-manager.users.${actualUsername} = import ./home.nix { 
+            hostname = actualHostname; 
+            username = actualUsername; 
+          };
         }
       ];
     };
 
-    # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations.${config.hostname}.pkgs;
   };
 }

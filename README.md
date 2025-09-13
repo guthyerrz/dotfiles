@@ -20,10 +20,8 @@ cd ~/dotfiles
 
 ## 📁 Structure
 
-- `nix-darwin/flake.nix` - System packages, Homebrew apps, macOS settings
+- `nix-darwin/flake.nix` - System packages, Homebrew apps, macOS settings with multiple host configurations
 - `nix-darwin/home.nix` - User environment and dotfile management
-- `nix-darwin/config.nix.template` - Template for host-specific configuration
-- `nix-darwin/config.nix` - Generated host-specific config (not tracked in git)
 - `ruby/` - Ruby gems managed via Nix bundlerEnv
 - Other directories - Your actual configuration files
 
@@ -32,7 +30,7 @@ cd ~/dotfiles
 After editing configurations:
 ```bash
 cd ~/dotfiles/nix-darwin
-darwin-rebuild switch --flake .
+darwin-rebuild switch --flake .#$(hostname | sed 's/\.local$//')
 ```
 
 ## 🎯 Features
@@ -47,4 +45,15 @@ darwin-rebuild switch --flake .
 
 ## 🔧 How It Works
 
-The setup automatically detects your hostname and username during first run, generating a `config.nix` file that's used by both nix-darwin and home-manager. This file is not tracked in git, making the dotfiles portable across different machines.
+The flake defines multiple host configurations within `flake.nix`. During setup, it automatically detects your hostname and username, then selects the appropriate configuration. If your specific hostname isn't defined, it falls back to a default configuration that uses environment variables. This approach keeps everything in Git while remaining portable across different machines.
+
+### Adding New Hosts
+
+To add a new machine, simply add it to the `darwinConfigurations` in `flake.nix`:
+
+```nix
+"your-hostname" = mkDarwinConfiguration {
+  hostname = "your-hostname";
+  username = "your-username";
+};
+```

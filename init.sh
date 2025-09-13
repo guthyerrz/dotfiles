@@ -43,30 +43,20 @@ if ! command -v nix &> /dev/null; then
     fi
 fi
 
-echo "🔧 Generating host-specific configuration..."
+echo "🔧 Detecting host configuration..."
 
 # Navigate to nix-darwin directory for flake
 cd "$DOTFILES_DIR/nix-darwin"
 
-# Generate config.nix from template if it doesn't exist
-if [ ! -f "config.nix" ]; then
-    echo "📝 Creating host-specific config.nix..."
-    
-    # Get system hostname (remove .local suffix if present)
-    HOSTNAME=$(hostname | sed 's/\.local$//')
-    
-    # Get current username
-    USERNAME=$(whoami)
-    
-    # Generate config.nix from template
-    sed -e "s/HOSTNAME_PLACEHOLDER/$HOSTNAME/g" \
-        -e "s/USERNAME_PLACEHOLDER/$USERNAME/g" \
-        config.nix.template > config.nix
-    
-    echo "✅ Generated config.nix with hostname: $HOSTNAME, username: $USERNAME"
-else
-    echo "ℹ️  Using existing config.nix"
-fi
+# Get system hostname (remove .local suffix if present)
+HOSTNAME=$(hostname | sed 's/\.local$//')
+USERNAME=$(whoami)
+
+echo "📝 Detected hostname: $HOSTNAME, username: $USERNAME"
+
+# Export environment variables for Nix flake
+export HOSTNAME="$HOSTNAME"
+export USER="$USERNAME"
 
 echo "🔧 Building and applying Darwin configuration..."
 
@@ -80,7 +70,7 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 # Run the nix-darwin switch with sudo only for this command
-sudo -E nix run nix-darwin -- switch --flake .
+sudo -E nix run nix-darwin -- switch --flake ".#$HOSTNAME"
 
 echo "✅ Setup complete!"
 echo ""
@@ -90,4 +80,4 @@ echo "   git config --global user.name 'Your Name'"
 echo "   git config --global user.email 'your.email@example.com'"
 echo ""
 echo "🔄 To update in the future, run:"
-echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake ."
+echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake .#\$(hostname | sed 's/\.local$//')"

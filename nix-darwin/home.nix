@@ -1,15 +1,11 @@
 # home.nix
 # home-manager switch 
 
-{ config, pkgs, ... }:
+{ hostname, username }: { config, pkgs, ... }:
 
-let
-  # Import host-specific configuration
-  hostConfig = import ./config.nix;
-in
 {
-  home.username = hostConfig.username;
-  home.homeDirectory = hostConfig.homeDirectory;
+  home.username = username;
+  home.homeDirectory = "/Users/${username}";
   home.stateVersion = "23.05"; # Please read the comment before changing.
 
 # Makes sense for user specific applications that shouldn't be available system-wide
