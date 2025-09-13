@@ -61,7 +61,20 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
 
-      users.users.${username}.home = "/Users/${username}";
+      # Set system hostname
+      networking.hostName = hostname;
+      networking.computerName = hostname;
+      networking.localHostName = hostname;
+
+      # Create and configure user
+      users.users.${username} = {
+        home = "/Users/${username}";
+        createHome = true;
+        shell = "/bin/zsh";
+        description = "Primary user account";
+        # Add user to admin group for sudo access
+        extraGroups = [ "admin" ];
+      };
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
       nix.useDaemon = true;
@@ -113,6 +126,7 @@
       
       # Common hostnames - add your machines here
       "guthy-v" = mkDarwinConfig "guthy-v" "guthy";
+      "guthy-mac" = mkDarwinConfig "guthy-mac" "guthy";
       "Guthyerrzs-MacBook-Air" = mkDarwinConfig "Guthyerrzs-MacBook-Air" "guthyerrz.silva";
       
       # Generic configurations for common usernames
