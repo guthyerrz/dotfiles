@@ -32,11 +32,11 @@
           pkgs.wget
           pkgs.stern
           pkgs.uv
-          (pkgs.ruby_3_3.withPackages (ps: with ps; [
-            fastlane
-            cocoapods
-            xcbeautify
-          ]))
+          (pkgs.bundlerEnv {
+            name = "ruby-gems";
+            ruby = pkgs.ruby_3_3;
+            gemdir = ../ruby;
+          })
         ];
       services.nix-daemon.enable = true;
       nix.settings.experimental-features = "nix-command flakes";
@@ -86,6 +86,7 @@
         "kubernetes-cli"
         "kube-ps1"
         "kubectx"
+        "xcbeautify"
       ];
     };
   in
