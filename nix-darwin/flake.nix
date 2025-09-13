@@ -58,19 +58,6 @@
       nixpkgs.hostPlatform = "aarch64-darwin";
       security.pam.enableSudoTouchIdAuth = true;
 
-      # Set system hostname
-      networking.hostName = actualHostname;
-      networking.computerName = actualHostname;
-      networking.localHostName = actualHostname;
-
-      # Create and configure user
-      users.users.${actualUsername} = {
-        home = "/Users/${actualUsername}";
-        createHome = true;
-        shell = "/bin/zsh";
-        description = "Primary user account";
-        extraGroups = [ "admin" ];
-      };
       home-manager.backupFileExtension = "backup";
       nix.configureBuildUsers = true;
       nix.useDaemon = true;

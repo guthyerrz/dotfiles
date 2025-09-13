@@ -70,7 +70,9 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 # Run the nix-darwin switch with sudo only for this command
-sudo -E nix run nix-darwin -- switch --flake ".#$HOSTNAME"
+# Use --impure to allow access to environment variables
+echo "🔧 Applying configuration for hostname: $HOSTNAME, user: $USERNAME"
+sudo -E nix run nix-darwin -- switch --flake ".#$HOSTNAME" --impure
 
 echo "✅ Setup complete!"
 echo ""
@@ -80,4 +82,4 @@ echo "   git config --global user.name 'Your Name'"
 echo "   git config --global user.email 'your.email@example.com'"
 echo ""
 echo "🔄 To update in the future, run:"
-echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake .#\$(hostname | sed 's/\.local$//')"
+echo "   cd ~/dotfiles && git pull && cd nix-darwin && HOSTNAME=\$(hostname | sed 's/\.local$//') darwin-rebuild switch --flake .#\$(hostname | sed 's/\.local$//') --impure"
