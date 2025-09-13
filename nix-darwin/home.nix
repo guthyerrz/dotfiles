@@ -14,21 +14,21 @@
 
   # Home Manager manages all dotfiles declaratively
   home.file = {
-    ".zshrc".source = ~/dotfiles/zshrc/.zshrc;
-    ".config/wezterm".source = ~/dotfiles/wezterm;
-    ".config/skhd".source = ~/dotfiles/skhd;
-    ".config/starship".source = ~/dotfiles/starship;
-    ".config/zellij".source = ~/dotfiles/zellij;
-    ".config/nvim".source = ~/dotfiles/nvim;
-    ".config/nix".source = ~/dotfiles/nix;
-    ".config/tmux".source = ~/dotfiles/tmux;
-    ".config/ghostty".source = ~/dotfiles/ghostty;
-    ".config/aerospace".source = ~/dotfiles/aerospace;
-    ".config/sketchybar".source = ~/dotfiles/sketchybar;
-    ".config/nushell".source = ~/dotfiles/nushell;
-    ".config/hammerspoon".source = ~/dotfiles/hammerspoon;
-    ".config/karabiner".source = ~/dotfiles/karabiner;
-    ".config/atuin".source = ~/dotfiles/atuin;
+    ".zshrc".source = ../zshrc/.zshrc;
+    ".config/wezterm".source = ../wezterm;
+    ".config/skhd".source = ../skhd;
+    ".config/starship".source = ../starship;
+    ".config/zellij".source = ../zellij;
+    ".config/nvim".source = ../nvim;
+    ".config/nix".source = ../nix;
+    ".config/tmux".source = ../tmux;
+    ".config/ghostty".source = ../ghostty;
+    ".config/aerospace".source = ../aerospace;
+    ".config/sketchybar".source = ../sketchybar;
+    ".config/nushell".source = ../nushell;
+    ".config/hammerspoon".source = ../hammerspoon;
+    ".config/karabiner".source = ../karabiner;
+    ".config/atuin".source = ../atuin;
   };
 
   home.sessionVariables = {
