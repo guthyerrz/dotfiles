@@ -50,7 +50,14 @@ cd "$DOTFILES_DIR/nix-darwin"
 
 # First time setup - creates darwin-rebuild command
 echo "🔐 You may be prompted for your password for system-level changes..."
-sudo nix run nix-darwin -- switch --flake .
+
+# Ensure Nix is in PATH and run with proper environment
+if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
+    source '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+fi
+
+# Run the nix-darwin switch with sudo but preserve environment
+sudo -E nix run nix-darwin -- switch --flake .
 
 echo "✅ Setup complete!"
 echo ""
