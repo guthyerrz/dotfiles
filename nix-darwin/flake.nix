@@ -31,7 +31,6 @@
           pkgs.zoxide
           pkgs.wget
           pkgs.stern
-          pkgs.stow
           pkgs.uv
           (pkgs.ruby_3_3.withPackages (ps: with ps; [
             fastlane
