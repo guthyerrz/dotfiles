@@ -90,7 +90,7 @@
     };
   in
   {
-    darwinConfigurations."Guthy-MacBook-Pro" = nix-darwin.lib.darwinSystem {
+    darwinConfigurations."Guthyerrzs-MacBook-Air" = nix-darwin.lib.darwinSystem {
       system = "aarch64-darwin";
       modules = [ 
 	configuration
@@ -103,6 +103,6 @@
     };
 
     # Expose the package set, including overlays, for convenience.
-    darwinPackages = self.darwinConfigurations."Guthy-MacBook-Pro".pkgs;
+    darwinPackages = self.darwinConfigurations."Guthyerrzs-MacBook-Air".pkgs;
   };
 }
