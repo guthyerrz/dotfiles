@@ -5,3 +5,4 @@ fzf
 history.txt
 
 # Host-specific configuration (generated during setup)
+nix-darwin/result
