@@ -24,6 +24,8 @@
     pkgs.wget
     pkgs.stern
     pkgs.uv
+    pkgs.trufflehog
+    pkgs.bat
     (pkgs.bundlerEnv {
       name = "ruby-gems";
       ruby = pkgs.ruby_3_3;

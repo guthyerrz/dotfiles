@@ -16,7 +16,6 @@
     kubectl
     starship
     atuin
-    bat
   ];
 
   # Home Manager manages all dotfiles declaratively
