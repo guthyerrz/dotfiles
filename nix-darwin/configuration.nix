@@ -41,6 +41,8 @@
 
   # Set Git commit hash for darwin-version.
   system.configurationRevision = null;
+  
+  system.primaryUser = "guthy";
 
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
@@ -48,4 +50,13 @@
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";
+
+  system.defaults = {
+    dock.autohide = true;
+    finder.AppleShowAllExtensions = true;
+    finder.FXPreferredViewStyle = "clmv";
+    loginwindow.LoginwindowText = "guthyerrz";
+    screencapture.location = "~/Pictures/screenshots";
+    screensaver.askForPasswordDelay = 10;
+  };
 }
