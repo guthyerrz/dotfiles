@@ -12,6 +12,25 @@
   # changes in each release.
   home.stateVersion = "25.05";
 
+  # Home Manager manages all dotfiles declaratively
+  # Note: .zshrc is managed by nix-darwin, not home-manager
+  home.file = {
+    ".config/wezterm".source = ../wezterm;
+    ".config/skhd".source = ../skhd;
+    ".config/starship".source = ../starship;
+    ".config/zellij".source = ../zellij;
+    ".config/nvim".source = ../nvim;
+    ".config/nix".source = ../nix;
+    ".config/tmux".source = ../tmux;
+    ".config/ghostty".source = ../ghostty;
+    ".config/aerospace".source = ../aerospace;
+    ".config/sketchybar".source = ../sketchybar;
+    ".config/nushell".source = ../nushell;
+    ".config/hammerspoon".source = ../hammerspoon;
+    ".config/karabiner".source = ../karabiner;
+    ".config/atuin".source = ../atuin;
+  };
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
