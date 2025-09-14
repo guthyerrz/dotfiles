@@ -48,7 +48,6 @@ echo "🔧 Using fixed host configuration..."
 # Navigate to nix-darwin directory for flake
 cd "$DOTFILES_DIR/nix-darwin"
 
-
 echo "🔧 Building and applying Darwin configuration..."
 
 # First time setup - creates darwin-rebuild command
@@ -61,8 +60,7 @@ if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
 fi
 
 # Run the nix-darwin switch with sudo only for this command
-# Use --impure to allow access to environment variables
-echo "🔧 Applying configuration"
+echo "🔧 Applying configuration (will automatically backup any conflicting files)"
 sudo -E nix run nix-darwin -- switch --flake .#guthy-host
 
 echo "✅ Setup complete!"
