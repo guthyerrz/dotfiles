@@ -1,6 +1,12 @@
 { pkgs, ... }:
 
 {
+  # Define your user for the system
+  users.users.guthy = {
+    name = "guthy";
+    home = "/Users/guthy";
+  };
+  
   # List packages installed in system profile. To search by name, run:
   # $ nix-env -qaP | grep wget
   environment.systemPackages = [
