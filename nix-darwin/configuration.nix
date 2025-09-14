@@ -24,6 +24,7 @@
     pkgs.wget
     pkgs.stern
     pkgs.uv
+    pkgs.karabiner-elements
     (pkgs.bundlerEnv {
       name = "ruby-gems";
       ruby = pkgs.ruby_3_3;
@@ -34,6 +35,7 @@
   # Disable nix-darwin's Nix management since we're using Determinate Nix
   nix.enable = false;
   nix.settings.experimental-features = "nix-command flakes";
+  security.pam.services.sudo_local.touchIdAuth = true;
 
   # Enable alternative shell support in nix-darwin.
   # programs.fish.enable = true;
