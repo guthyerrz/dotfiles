@@ -63,7 +63,7 @@ fi
 # Run the nix-darwin switch with sudo only for this command
 # Use --impure to allow access to environment variables
 echo "🔧 Applying configuration"
-sudo -E nix run nix-darwin -- switch --flake .
+sudo -E nix run nix-darwin -- switch --flake .#guthy-host
 
 echo "✅ Setup complete!"
 echo ""
@@ -73,4 +73,4 @@ echo "   git config --global user.name 'Your Name'"
 echo "   git config --global user.email 'your.email@example.com'"
 echo ""
 echo "🔄 To update in the future, run:"
-echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake ."
+echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake .#guthy-host"
