@@ -19,5 +19,21 @@
     enable = true;
     userName = "Guthyerrz Silva";
     userEmail = "guthyerrz.ufcg@gmail.com";
+    extraConfig = {
+      branch = {
+        autosetuprebase = "always";
+      };
+      url = {
+        "git@git.topfreegames.com:" = {
+          insteadof = "https://git.topfreegames.com/";
+        };
+        "git@github.com:" = {
+          insteadof = "git://github.com";
+        };
+      };
+      push = {
+        autoSetupRemote = true;
+      };
+    };
   };
 }
