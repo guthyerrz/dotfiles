@@ -13,8 +13,8 @@
   ];
 
   # Home Manager manages all dotfiles declaratively
+  # Note: .zshrc is managed by nix-darwin, not home-manager
   home.file = {
-    ".zshrc".source = ../zshrc/.zshrc;
     ".config/wezterm".source = ../wezterm;
     ".config/skhd".source = ../skhd;
     ".config/starship".source = ../starship;
