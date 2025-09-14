@@ -42,10 +42,15 @@
   programs.zsh = {
     enable = true;
     initExtra = ''
+      # Source custom zshrc
+      if [ -f "${../zshrc}/.zshrc" ]; then
+        source "${../zshrc}/.zshrc"
+      fi
+      
       # Add any additional configurations here
       export PATH=/run/current-system/sw/bin:$HOME/.nix-profile/bin:$PATH
       if [ -e '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh' ]; then
-        . '/nix/var/nix/profiles/default/etc/profile.d/nix-daemon.sh'
+        . '/nix/var/nix/profiles/default/etc/profile.d/nix-darwin.sh'
       fi
     '';
   };

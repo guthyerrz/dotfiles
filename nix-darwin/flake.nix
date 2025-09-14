@@ -46,15 +46,6 @@
       nix.settings.experimental-features = "nix-command flakes";
       programs.zsh.enable = true;  # default shell on catalina
       
-      # Configure shell to source our custom zshrc
-      environment.loginShell = pkgs.zsh;
-      environment.variables.ZDOTDIR = "$HOME";
-      system.activationScripts.extraUserActivation.text = ''
-        # Link custom zshrc
-        if [ ! -L "$HOME/.zshrc" ]; then
-          ln -sfn "${../zshrc}/.zshrc" "$HOME/.zshrc"
-        fi
-      '';
       system.configurationRevision = self.rev or self.dirtyRev or null;
       system.stateVersion = 4;
       nixpkgs.hostPlatform = "aarch64-darwin";
