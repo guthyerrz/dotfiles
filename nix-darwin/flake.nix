@@ -14,7 +14,7 @@
   outputs = inputs@{ self, nix-darwin, nixpkgs, home-manager }:
   let
     # Use fixed values for your specific machine
-    actualHostname = "guthy-host";
+    actualHostname = "guthy-air";
     actualUsername = "guthy";
     
     configuration = { pkgs, ... }: {
