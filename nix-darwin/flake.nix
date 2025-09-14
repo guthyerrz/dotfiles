@@ -37,6 +37,8 @@
 
       # Disable nix-darwin's Nix management since we're using Determinate Nix
       nix.enable = false;
+      
+      nix.settings.experimental-features = "nix-command flakes";
 
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
