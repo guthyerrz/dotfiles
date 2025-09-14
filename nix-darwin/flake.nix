@@ -16,8 +16,8 @@
         [ pkgs.vim
         ];
 
-      # Necessary for using flakes on this system.
-      nix.settings.experimental-features = "nix-command flakes";
+      # Disable nix-darwin's Nix management since we're using Determinate Nix
+      nix.enable = false;
 
       # Enable alternative shell support in nix-darwin.
       # programs.fish.enable = true;
