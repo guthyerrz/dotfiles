@@ -54,7 +54,15 @@
   system.defaults = {
     dock.autohide = true;
     finder.AppleShowAllExtensions = true;
-    finder.FXPreferredViewStyle = "clmv";
+    finder.FXPreferredViewStyle = "Nlsv";
+    finder._FXShowPosixPathInTitle = true;
+    finder.CreateDesktop = false;
+    finder.FXEnableExtensionChangeWarning = false;
+    finder.NewWindowTarget = "Other";
+    finder.NewWindowTargetPath = "~/";
+    finder.QuitMenuItem = true;
+    finder.ShowExternalHardDrivesOnDesktop = false;
+    finder.ShowRemovableMediaOnDesktop = false;
     loginwindow.LoginwindowText = "guthyerrz";
     screencapture.location = "~/Pictures/screenshots";
     screensaver.askForPasswordDelay = 10;
