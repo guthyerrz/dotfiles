@@ -67,5 +67,7 @@
     loginwindow.LoginwindowText = "guthyerrz";
     screencapture.location = "~/Pictures/screenshots";
     screensaver.askForPasswordDelay = 10;
+    NSGlobalDomain.InitialKeyRepeat = 10;
+    NSGlobalDomain.KeyRepeat = 1;
   };
 }
