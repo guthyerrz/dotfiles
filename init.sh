@@ -78,7 +78,7 @@ fi
 
 # Run the nix-darwin switch with sudo only for this command
 echo "🔧 Applying configuration (will automatically backup any conflicting files)"
-sudo -E nix run nix-darwin -- switch --flake .#guthy-host
+sudo -E nix run nix-darwin -- switch --flake .#guthy-air
 
 echo "✅ Setup complete!"
 echo ""
@@ -94,4 +94,4 @@ echo "   git config --global user.name 'Your Name'"
 echo "   git config --global user.email 'your.email@example.com'"
 echo ""
 echo "🔄 To update in the future, run:"
-echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake .#guthy-host"
+echo "   cd ~/dotfiles && git pull && cd nix-darwin && darwin-rebuild switch --flake .#guthy-air"
