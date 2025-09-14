@@ -12,6 +12,12 @@
   # changes in each release.
   home.stateVersion = "25.05";
 
+  home.packages = with pkgs; [
+    kubectl
+    starship
+    atuin
+  ];
+
   # Home Manager manages all dotfiles declaratively
   # Note: .zshrc is managed by nix-darwin, not home-manager
   home.file = {
@@ -37,7 +43,22 @@
   programs.zsh = {
     enable = true;
     initContent = builtins.readFile ../zshrc/.zshrc;
+    plugins = [
+      {
+        name = "zsh-autosuggestions";
+        src = pkgs.fetchFromGitHub {
+          owner = "zsh-users";
+          repo = "zsh-autosuggestions";
+          rev = "v0.7.0";
+          sha256 = "1g3pij5qn2j7v7jjac2a63lxd97mcsgw6xq6k5p7835q9fjiid98";
+        };
+      }
+    ];
   };
+
+  programs.starship.enable = true;
+  programs.atuin.enable = true;
+  programs.atuin.enableZshIntegration = true;
 
   programs.git = {
     enable = true;

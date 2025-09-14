@@ -5,10 +5,8 @@ zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
 autoload bashcompinit && bashcompinit
 autoload -Uz compinit
 compinit
-source <(kubectl completion zsh)
 complete -C '/usr/local/bin/aws_completer' aws
 
-source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 bindkey '^w' autosuggest-execute
 bindkey '^e' autosuggest-accept
 bindkey '^u' autosuggest-toggle
@@ -103,8 +101,6 @@ alias ltree="eza --tree --level=2  --icons --git"
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow'
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH=/opt/homebrew/bin:$PATH
-
 alias mat='osascript -e "tell application \"System Events\" to key code 126 using {command down}" && tmux neww "cmatrix"'
 
 # Nix!
@@ -143,5 +139,4 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
 export XDG_CONFIG_HOME="~/.config"
 
 eval "$(zoxide init zsh)"
-eval "$(atuin init zsh)"
 eval "$(direnv hook zsh)"
