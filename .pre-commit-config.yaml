@@ -1,0 +1,12 @@
+repos:
+  - repo: https://github.com/trufflesecurity/trufflehog
+    rev: v3.70.0
+    hooks:
+      - id: trufflehog
+        name: trufflehog
+        entry: trufflehog
+        language: system
+        args: ['filesystem', '--no-verification', '--fail']
+        types: [text]
+        pass_filenames: false
+        always_run: true

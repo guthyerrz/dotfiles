@@ -26,6 +26,7 @@
     pkgs.uv
     pkgs.trufflehog
     pkgs.bat
+    pkgs.pre-commit
     (pkgs.bundlerEnv {
       name = "ruby-gems";
       ruby = pkgs.ruby_3_3;

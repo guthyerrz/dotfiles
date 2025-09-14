@@ -1,0 +1,38 @@
+# TruffleHog ignore file
+# Add patterns here to exclude files from credential scanning
+
+# Common false positive patterns
+*.lock
+*.log
+package-lock.json
+yarn.lock
+Gemfile.lock
+flake.lock
+
+# Binary files
+*.bin
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Generated files
+node_modules/
+target/
+dist/
+build/
+*.min.js
+*.min.css
+
+# Test files that might contain example credentials
+*test*
+*spec*
+*example*
+
+# Documentation that might contain example keys
+README.md
+*.md
+
+# Add specific files or directories you want to exclude
+# .env.example
+# config/example.json
