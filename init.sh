@@ -32,6 +32,23 @@ fi
 # Navigate to dotfiles directory
 cd "$DOTFILES_DIR"
 
+# Install Homebrew if not present
+if ! command -v brew &> /dev/null; then
+    echo "🍺 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for the current session
+    if [[ $(uname -m) == "arm64" ]]; then
+        # Apple Silicon Mac
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    else
+        # Intel Mac
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+else
+    echo "🍺 Homebrew already installed"
+fi
+
 # Install Nix if not present
 if ! command -v nix &> /dev/null; then
     echo "❄️  Installing Nix..."
@@ -64,6 +81,12 @@ echo "🔧 Applying configuration (will automatically backup any conflicting fil
 sudo -E nix run nix-darwin -- switch --flake .#guthy-host
 
 echo "✅ Setup complete!"
+echo ""
+echo "🎉 Your Mac is now configured with:"
+echo "   • Homebrew and all specified casks/brews"
+echo "   • Nix with nix-darwin system management"
+echo "   • Home Manager for dotfiles"
+echo "   • All your development tools and configurations"
 echo ""
 echo "🔄 Please restart your terminal or run: exec zsh"
 echo "📝 Don't forget to configure Git:"
