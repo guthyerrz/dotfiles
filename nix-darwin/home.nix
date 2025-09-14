@@ -58,6 +58,7 @@
 
   programs.starship.enable = true;
   programs.atuin.enable = true;
+  programs.atuin.enableZshIntegration = true;
 
   programs.git = {
     enable = true;
