@@ -16,6 +16,7 @@
     kubectl
     starship
     atuin
+    bat
   ];
 
   # Home Manager manages all dotfiles declaratively
@@ -34,7 +35,6 @@
     ".config/nushell".source = ../nushell;
     ".config/hammerspoon".source = ../hammerspoon;
     ".config/karabiner".source = ../karabiner;
-    ".config/atuin".source = ../atuin;
   };
 
   # Let Home Manager install and manage itself.
@@ -57,8 +57,11 @@
   };
 
   programs.starship.enable = true;
-  programs.atuin.enable = true;
-  programs.atuin.enableZshIntegration = true;
+  programs.atuin = {
+    enable = true;
+    enableZshIntegration = true;
+    settings.enter_accept = false;
+};
 
   programs.git = {
     enable = true;

@@ -136,7 +136,5 @@ fv() { nvim "$(find . -type f -not -path '*/.*' | fzf)" }
  fi
  # End Nix
 
-export XDG_CONFIG_HOME="~/.config"
-
 eval "$(zoxide init zsh)"
 eval "$(direnv hook zsh)"
