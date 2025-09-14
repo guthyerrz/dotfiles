@@ -85,6 +85,9 @@
 
       # Homebrew needs to be installed on its own!
       homebrew.enable = true;
+      homebrew.onActivation.cleanup = "zap";
+      homebrew.onActivation.autoUpdate = true;
+      homebrew.onActivation.upgrade = true;
       homebrew.casks = [
         "google-chrome"
         "ngrok"
