@@ -27,6 +27,7 @@
     pkgs.trufflehog
     pkgs.bat
     pkgs.pre-commit
+    pkgs.openfga-cli
     (pkgs.bundlerEnv {
       name = "ruby-gems";
       ruby = pkgs.ruby_3_3;
@@ -51,6 +52,37 @@
   # Used for backwards compatibility, please read the changelog before changing.
   # $ darwin-rebuild changelog
   system.stateVersion = 6;
+
+  homebrew.enable = true;
+  homebrew.onActivation.cleanup = "zap";
+  homebrew.onActivation.autoUpdate = true;
+  homebrew.onActivation.upgrade = true;
+  homebrew.caskArgs.appdir = "/Applications";
+  homebrew.casks = [
+    "google-chrome"
+    "ngrok"
+    "whatsapp"
+    "surfshark"
+    "spotify"
+    "slack"
+    "raycast"
+    "proton-pass"
+    "postman"
+    "localsend"
+    "ghostty"
+    "fork"
+    "docker-desktop"
+    "cursor"
+    "charles"
+    "android-studio"
+  ];
+  homebrew.brews = [
+    "imagemagick"
+    "kubernetes-cli"
+    "kube-ps1"
+    "kubectx"
+    "xcbeautify"
+  ];
 
   # The platform the configuration will be used on.
   nixpkgs.hostPlatform = "aarch64-darwin";

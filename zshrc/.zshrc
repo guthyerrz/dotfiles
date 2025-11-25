@@ -84,6 +84,7 @@ alias kl="kubectl logs -f"
 alias ke="kubectl exec -it"
 alias kcns='kubectl config set-context --current --namespace'
 alias podname=''
+alias ag="open -a 'Antigravity'"
 
 # HTTP requests with xh!
 alias http="xh"
