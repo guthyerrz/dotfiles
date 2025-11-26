@@ -28,6 +28,12 @@
     pkgs.bat
     pkgs.pre-commit
     pkgs.openfga-cli
+    pkgs.nodejs_22
+    pkgs.pnpm
+    pkgs.poetry
+    pkgs.docker-compose
+    pkgs.python3
+    pkgs.supabase-cli
     (pkgs.bundlerEnv {
       name = "ruby-gems";
       ruby = pkgs.ruby_3_3;
@@ -60,7 +66,7 @@
   homebrew.caskArgs.appdir = "/Applications";
   homebrew.casks = [
     "google-chrome"
-    "ngrok"
+  
     "whatsapp"
     "surfshark"
     "spotify"
